@@ -7,20 +7,20 @@ The gist of the Pub/Sub pattern is the idea of the "message dispatch", where a c
 So the plan is to implement a simple message board, kind of like a mini Whatsapp/Signal, where people can know who is online, send messages to the group and send private messages to each other. The basic websocket (socket.io) connection is already implemented, what is remaining is to implement the messaging system in the server and in the client.
 
 One suggested plan, open to revision:
-[ ] implement sending messages to the main group
-[ ] implement receiving messages from the main group (there already is a reducer working for that)
-[ ] implement changing names of users
-  [ ] implement identifying messages by their users
-[ ] implement sending messages between users
-[ ] implement different groups/message channels
+- [ ] implement sending messages to the main group
+- [ ] implement receiving messages from the main group (there already is a reducer working for that)
+- [ ] implement changing names of users
+  - [ ] implement identifying messages by their users
+- [ ] implement sending messages between users
+- [ ] implement different groups/message channels
 
 Extra goals:
-[ ] implement message timestamping
-[ ] implement admin/moderation controls
-  [ ] implement removing messages
-    [ ] implement removing messages _only if you are allowed to_ (i.e.: the original user or an admin)
-  [ ] implement mute/block
-  [ ] implement banning of users
-[ ] implement group messaging
-  [ ] implement adding and removing users from groups dynamically
-[ ] implement image messages (that would be interesting!)
+- [ ] implement message timestamping
+- [ ] implement admin/moderation controls
+  - [ ] implement removing messages
+    - [ ] implement removing messages _only if you are allowed to_ (i.e.: the original user or an admin)
+  - [ ] implement mute/block
+  - [ ] implement banning of users
+- [ ] implement group messaging
+  - [ ] implement adding and removing users from groups dynamically
+- [ ] implement image messages (that would be interesting!)
