@@ -1,73 +1,26 @@
-# React + TypeScript + Vite
+# Websocket Pub/Sub Chat Exercise
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This exercise is designed to explain and explore the Pub/Sub (publisher/subscriber) pattern - one of the major event-based architecture patterns in use in multiple systems. Several of the systems that are in use with React and Socket.io actually implement the Pub/Sub pattern, especially with handling UI and network events.
 
-Currently, two official plugins are available:
+The gist of the Pub/Sub pattern is the idea of the "message dispatch", where a central piece of code receives messages from other parts of the system - the publishers -, and relays those messages to other parts of the system - the subscribers - based on rules about those messages. Usually the messages are separated by "channels" or "types" - a text message between two users has a different "channel" than a message in a general board, and name changes are also a different "type" of message.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+So the plan is to implement a simple message board, kind of like a mini Whatsapp/Signal, where people can know who is online, send messages to the group and send private messages to each other. The basic websocket (socket.io) connection is already implemented, what is remaining is to implement the messaging system in the server and in the client.
 
-## React Compiler
+One suggested plan, open to revision:
+[ ] implement sending messages to the main group
+[ ] implement receiving messages from the main group (there already is a reducer working for that)
+[ ] implement changing names of users
+  [ ] implement identifying messages by their users
+[ ] implement sending messages between users
+[ ] implement different groups/message channels
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Extra goals:
+[ ] implement message timestamping
+[ ] implement admin/moderation controls
+  [ ] implement removing messages
+    [ ] implement removing messages _only if you are allowed to_ (i.e.: the original user or an admin)
+  [ ] implement mute/block
+  [ ] implement banning of users
+[ ] implement group messaging
+  [ ] implement adding and removing users from groups dynamically
+[ ] implement image messages (that would be interesting!)
