@@ -14,10 +14,30 @@ const io = new Server(server, {
         origin: [`http://localhost:${port}`]
     }
 });
+
+let users = {}
 io.on("connection", (stream) => {
-    console.log("someone connected!");
+    const thisUser = {id:stream.id, name:`user-${stream.id}`}
+    users[stream.id] = thisUser
+    io.emit("user-joined", thisUser);
+    stream.emit("all-users-list", Object.values(users));
+    
+    stream.on("main", (message)=> 
+        {console.log(message)
+        io.emit("message", message, thisUser);
+    });
     stream.on("disconnect", () => {
-        console.log("someone disconnected!");
+        console.log(`${thisUser.name} disconnected!`);
+        io.emit("user-left", thisUser);
+        delete users[stream.id]
+    })
+
+    stream.on("change-name", (userName) => {
+        console.log("change name: ", userName)
+        let user = users[stream.id];
+        user.name = userName;
+        users[stream.id] = user;
+        io.emit("change-name", user)
     })
 });
 ViteExpress.bind(app, server);
